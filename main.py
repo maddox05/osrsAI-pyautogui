@@ -87,7 +87,8 @@ def chopTreesMaplesSeers():
         time.sleep(random.randint(4, 5))
 
         if didSwing():
-            time.sleep(random.randint(58, 64))
+            print("chopping now!")
+            time.sleep(random.randint(58, 64))  # should add something to check if tree is finished chopping
             if reset() == "Success":
                 main_bot.addTreeChopped()
                 chopTreesMaplesSeers()
@@ -99,12 +100,10 @@ def chopTreesMaplesSeers():
                 print("inventory is full")
             else:
                 print("tree hit failed")
-
-            # reset
     else:
         print("No trees available.\n trying again")
+        time.sleep(1)
         chopTreesMaplesSeers()
-    # 20 scrolls
 
 
 def randomTreeChooser():

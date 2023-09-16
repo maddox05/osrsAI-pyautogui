@@ -34,8 +34,7 @@ def reset():
 
 
 def chopTreesMaplesSeers():
-    tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-1st.png", confidence=0.80,
-                                          grayscale=False)
+    tree = randomTreeChooser()
     if tree is not None:
         hc.move((tree.x, tree.y), random.uniform(.5, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
         pyautogui.click(button="left")
@@ -46,6 +45,7 @@ def chopTreesMaplesSeers():
             print("player started hitting tree")  # error as more messages may be on screen of tree succesfully hit
             time.sleep(random.randint(58, 64))
             if reset() == "Success":
+                main_bot.addTreeChopped()
                 chopTreesMaplesSeers()
         else:
             print("tree hit failed")
@@ -57,7 +57,30 @@ def chopTreesMaplesSeers():
     # 20 scrolls
 
 
+def randomTreeChooser():
+    random_tree = random.randint(1, 4)
+    if random_tree == 1:
+        tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-1st.png", confidence=0.80,
+                                              grayscale=False)
+    if random_tree == 2:
+        tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-2nd.png", confidence=0.80,
+                                              grayscale=False)
+    if random_tree == 3:
+        tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-3rd.png", confidence=0.80,
+                                              grayscale=False)
+    else:
+        tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-4th.png", confidence=0.80,
+                                              grayscale=False)
+    if tree is None:
+        print(f"tree was {random_tree} was not found, trying again")
+        randomTreeChooser()
+    else:
+        print(f"tree {random_tree} was chosen")
+        return tree
+
+
 if __name__ == "__main__":
+    main_bot = BotCreator("Seers_Village", "bot", "1234")
     time.sleep(1)
     start()
     chopTreesMaplesSeers()

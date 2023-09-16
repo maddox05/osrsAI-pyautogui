@@ -7,6 +7,7 @@ from creator import BotCreator
 
 hc = HumanClicker()
 
+
 def start():
     # type in username and password
     time.sleep(2)
@@ -22,7 +23,8 @@ def start():
 def reset():
     reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.50, grayscale=False)
     if reset_spot is not None:
-        hc.move((reset_spot.x, reset_spot.y), random.uniform(.5,.8)) # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
+        hc.move((reset_spot.x, reset_spot.y),
+                random.uniform(.5, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
         pyautogui.click(button="left")
         time.sleep(random.randint(3, 5))
         return "Success"
@@ -32,12 +34,12 @@ def reset():
 
 
 def chopTreesMaplesSeers():
-    tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-1st.png", confidence=0.88,
+    tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-1st.png", confidence=0.80,
                                           grayscale=False)
     if tree is not None:
-        hc.move((tree.x, tree.y), random.uniform(.5,.8)) # pyautogui.moveTo(tree.x, tree.y, duration=1)
+        hc.move((tree.x, tree.y), random.uniform(.5, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
         pyautogui.click(button="left")
-        time.sleep(random.randint(2, 3))
+        time.sleep(random.randint(4, 5))
         did_swing = pyautogui.locateOnScreen("assets/seers-village-maples/u-swing-axe.png", confidence=0.90,
                                              grayscale=False)
         if did_swing is not None:
@@ -50,7 +52,8 @@ def chopTreesMaplesSeers():
             # reset
     else:
         print("No trees available")
-
+        print("trying again")
+        chopTreesMaplesSeers()
     # 20 scrolls
 
 

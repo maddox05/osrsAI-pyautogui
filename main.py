@@ -31,7 +31,7 @@ def smooth_scroll(amount):
 def start():
     compass = pyautogui.locateCenterOnScreen("assets/compass.png", confidence=0.80, grayscale=False)
     if compass is not None:
-        hc.move((compass.x, compass.y), random.uniform(.5, .8))
+        hc.move((compass.x, compass.y), random.uniform(.2, .8))
         pyautogui.click(button="left")
         hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
     else:
@@ -52,13 +52,14 @@ def reset():
     reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.30, grayscale=False)
     if reset_spot is not None:
         hc.move((reset_spot.x, reset_spot.y),
-                random.uniform(.5, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
+                random.uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
         pyautogui.click(button="left")
         time.sleep(random.randint(3, 5))
         print("reset successful")
         return "Success"
     else:
         print("could not reset, ending now")
+        time.sleep(1)
         quit()
 
 
@@ -107,10 +108,11 @@ def bankAtSeers():
             hc.move((log.x, log.y), random.uniform(.5, .8))
             pyautogui.click(button="right")
             deposit_button = pyautogui.locateCenterOnScreen("assets/seers-village-maples/deposit-all-maple-logs.png",
-                                                            confidence=0.65,
+                                                            confidence=0.70,
                                                             grayscale=False,
-                                                            limit=2)
-            hc.move((deposit_button.x, deposit_button.y), random.uniform(.5, .8))
+                                                            limit=3)
+            hc.move((deposit_button.x, deposit_button.y),
+                    random.uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
             pyautogui.click(button="left")
             pyautogui.keyDown("esc")
             time.sleep(.05)
@@ -131,20 +133,21 @@ def bankAtSeers():
 
 def chopTreesMaplesSeers():
     # reset()
-    tree = randomTreeChooser()
+    tree = main_bot.randomTreeChooser()  # fix later but call with certain instance of bot
     if tree is not None:
-        hc.move((tree.x, tree.y), random.uniform(.5, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
+        hc.move((tree.x, tree.y), random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
         pyautogui.click(button="left")
         time.sleep(random.randint(4, 5))
 
         if didSwing() and amountOfMapleLogs() < 23:
             print("chopping now!")
-            time.sleep(random.randint(62, 68))  # should add something to check if tree is finished chopping
+            time.sleep(random.randint(69, 73))  # should add something to check if tree is finished chopping
             if reset() == "Success":
                 main_bot.addTreeChopped()
                 chopTreesMaplesSeers()
             else:
                 print("could not reset fatal error")
+                time.sleep(1)
                 quit()
         else:
             if isInventoryFull():  # won't work 100% of time as if message exist anywhere it will fire
@@ -153,6 +156,8 @@ def chopTreesMaplesSeers():
                     if reset() == "Success":
                         bankAtSeers()
                         if reset() == "Success":
+                            print("sleeping for 10 seconds")
+                            time.sleep(random.uniform(9, 11))
                             chopTreesMaplesSeers()
                         else:
                             print("could not reset, fatal error")
@@ -163,38 +168,23 @@ def chopTreesMaplesSeers():
                 if amountOfMapleLogs() >= 23:
                     if reset() == "Success":
                         bankAtSeers()
-                        reset()
-                        time.sleep(random.uniform(9, 11))
-                        chopTreesMaplesSeers()
+                        if reset() == "Success":
+                            print("sleeping for 10 seconds")
+                            time.sleep(random.uniform(9, 11))
+
+                            chopTreesMaplesSeers()
+                        else:
+                            print("could not reset, fatal error")
+                            time.sleep(2)
+                            quit()
     else:
         print("No trees available.\nfatal error")
         time.sleep(1)
         quit()
 
 
-def randomTreeChooser():
-    tree = None
-    while tree is None:
-        random_tree = random.randint(1, 4)
-        if random_tree == 1:
-            tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-1st.png", confidence=0.70,
-                                                  grayscale=False)
-        if random_tree == 2:
-            tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-2nd.png", confidence=0.70,
-                                                  grayscale=False)
-        if random_tree == 3:
-            tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-3rd.png", confidence=0.80,
-                                                  grayscale=False)
-        else:
-            tree = pyautogui.locateCenterOnScreen("assets/seers-village-maples/tree-maple-4th.png", confidence=0.70,
-                                                  grayscale=False)
-        if tree is not None:
-            print(f"tree {random_tree} was chosen")
-            return tree
-
-
 if __name__ == "__main__":
-    main_bot = BotCreator("Seers_Village", "bot", "1234")
+    main_bot = BotCreator("Seers_Village", "bot", "1234", "1234")
     time.sleep(2)
     start()
     chopTreesMaplesSeers()

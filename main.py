@@ -216,7 +216,7 @@ def chopTreesMaplesSeers():
 
         if didSwing() and amountOfMapleLogs() < 26:
             print("chopping now!")
-            time.sleep(random.randint(69, 73))  # should add something to check if tree is finished chopping
+            time.sleep(random.randint(65, 70))  # should add something to check if tree is finished chopping
             if reset() == "Success":
                 main_bot.addTreeChopped()
                 chopTreesMaplesSeers()

@@ -12,6 +12,7 @@ tree_3_maple_images = ["assets/seers-village-maples/tree-3-maple/tree-maple-3-1.
 tree_4_maple_images = ["assets/seers-village-maples/tree-4-maple/tree-maple-4-1.png",
                        "assets/seers-village-maples/tree-4-maple/tree-maple-4-2.png"]
 
+
 class BotCreator:
     trees_chopped = 0
     fires_made = 0
@@ -61,6 +62,17 @@ class BotCreator:
         self.last_tree_chopped = tree
 
     def randomTreeChooser(self):
+        """
+        Chooses a random tree on the screen and returns it.
+
+        Loops until a tree is found.
+
+        Args:
+            self: instance of the bot
+
+        Returns:
+            the tree object that was chosen
+    """
         tree = None
         while tree is None:
             random_tree = random_tree = random.randint(1, 4)

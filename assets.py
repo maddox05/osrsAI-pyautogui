@@ -1,33 +1,38 @@
-tree_1_maple_images = ["assets/seers-village-maples/tree-1-maple/tree-maple-1-1.png",
-                       "assets/seers-village-maples/tree-1-maple/tree-maple-1-2.png"]
+import os
 
-tree_2_maple_images = ["assets/seers-village-maples/tree-2-maple/tree-maple-2-1.png",
-                       "assets/seers-village-maples/tree-2-maple/tree-maple-2-2.png",
-                       "assets/seers-village-maples/tree-2-maple/MAC-maple-2-1.png"]
 
-tree_3_maple_images = ["assets/seers-village-maples/tree-3-maple/tree-maple-3-1.png"]
+maple_trees_1_folder = "assets/seers-village-maples/tree-1-maple/"
+tree_1_maple_images = os.listdir(maple_trees_1_folder)
 
-tree_4_maple_images = ["assets/seers-village-maples/tree-4-maple/tree-maple-4-1.png",
-                       "assets/seers-village-maples/tree-4-maple/tree-maple-4-2.png"]
+maple_trees_2_folder = "assets/seers-village-maples/tree-2-maple/"
+tree_2_maple_images = os.listdir(maple_trees_2_folder)
 
-maple_deposit = ["assets/seers-village-maples/maple-deposit/deposit-maple-1-1.png",
-                 "assets/seers-village-maples/maple-deposit/deposit-maple-1-2.png"]
-bank_images = ["assets/seers-village-maples/bank/bank-1-seer.png",
-               "assets/seers-village-maples/bank/bank-2-seer.png"]
+maple_trees_3_folder = "assets/seers-village-maples/tree-3-maple/"
+tree_3_maple_images = os.listdir(maple_trees_3_folder)
 
-tree_1_dead_maple = ["assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-1.png",
-                     "assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-2.png",
-                     "assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-3.png"]
+maple_trees_4_folder = "assets/seers-village-maples/tree-4-maple/"
+tree_4_maple_images = os.listdir(maple_trees_4_folder)
 
-tree_2_dead_maple = ["assets/seers-village-maples-dead/tree-2-maple/dead-maple-2-1.png"]
+maple_deposit_folder = "assets/seers-village-maples/maple-deposit/"
+maple_deposit = os.listdir(maple_deposit_folder)
 
-tree_3_dead_maple = ["assets/seers-village-maples-dead/tree-3-maple/dead-maple-3-1.png"]
+bank_folder = "assets/seers-village-maples/bank/"
+bank_images = os.listdir(bank_folder)
 
-tree_4_dead_maple = ["assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-1.png",
-                     "assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-2.png"]
+maple_tree_1_dead_folder = "assets/seers-village-maples-dead/tree-1-maple/"
+tree_1_dead_maple = os.listdir(maple_tree_1_dead_folder)
 
-compass_images = ["assets/compass/compass-1.png",
-                  "assets/compass/compass-2.png"]
+maple_tree_2_dead_folder = "assets/seers-village-maples-dead/tree-2-maple/"
+tree_2_dead_maple = os.listdir(maple_tree_2_dead_folder)
+
+maple_tree_3_dead_folder = "assets/seers-village-maples-dead/tree-3-maple/"
+tree_3_dead_maple = os.listdir(maple_tree_3_dead_folder)
+
+maple_tree_4_dead_folder = "assets/seers-village-maples-dead/tree-4-maple/"
+tree_4_dead_maple = os.listdir(maple_tree_4_dead_folder)
+
+compass_folder = "assets/compass/"
+compass_images = os.listdir(compass_folder)
 
 def printAsiccArt():
     print(" __  __              _       _                      __     ___   ")

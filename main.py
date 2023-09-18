@@ -1,9 +1,16 @@
-import pyautogui
-import random
-import time
-from pyclick import HumanClicker
+try:
+    import pyautogui
+    import random
+    import time
+    from pyclick import HumanClicker
 
-from creator import BotCreator
+    from creator import BotCreator
+    from assets import *
+except ImportError as e:
+    # Log the specific error message and traceback
+    import logging
+    logging.error(f"Failed to import a module: {e}")
+    raise  # Re-raise the exception for further diagnosis
 
 """
  * A Osrs bot made using pyautogui
@@ -13,19 +20,12 @@ from creator import BotCreator
  * @author Maddox Schmidlkofer
  * @version September 17, 2023
 """
-
-hc = HumanClicker()  # init human clicker
-
-tree_1_maple_images = ["assets/seers-village-maples/tree-1-maple/tree-maple-1-1.png",
-                       "assets/seers-village-maples/tree-1-maple/tree-maple-1-2.png"]
-
-tree_2_maple_images = ["assets/seers-village-maples/tree-2-maple/tree-maple-2-1.png",
-                       "assets/seers-village-maples/tree-2-maple/tree-maple-2-2.png"]
-
-tree_3_maple_images = ["assets/seers-village-maples/tree-3-maple/tree-maple-3-1.png"]
-
-tree_4_maple_images = ["assets/seers-village-maples/tree-4-maple/tree-maple-4-1.png",
-                       "assets/seers-village-maples/tree-4-maple/tree-maple-4-2.png"]
+try:
+    hc = HumanClicker()  # init human clicker
+except:
+    print("Failed to initialize human clicker, fatal error")
+    time.sleep(5)
+    quit()
 
 
 def smooth_scroll(amount):
@@ -68,7 +68,7 @@ def start():
         pyautogui.click(button="left")
         hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
     else:
-        print("could not find compass and cannot center direction to north\nfatal error")
+        print("could not find compass and cannot center direction to north\nfatal error\nquitting now")
         time.sleep(2)
         quit()
     # type in username and password
@@ -201,12 +201,6 @@ def locateLog():
         return log
 
 
-maple_deposit = ["assets/seers-village-maples/maple-deposit/deposit-maple-1-1.png",
-                 "assets/seers-village-maples/maple-deposit/deposit-maple-1-2.png"]
-bank_images = ["assets/seers-village-maples/bank/bank-1-seer.png",
-               "assets/seers-village-maples/bank/bank-2-seer.png"]
-
-
 def bankAtSeers():
     """
     Banks at seers village
@@ -264,18 +258,6 @@ def bankAtSeers():
         quit()
 
 
-tree_1_dead_maple = ["assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-1.png",
-                     "assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-2.png",
-                     "assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-3.png"]
-
-tree_2_dead_maple = ["assets/seers-village-maples-dead/tree-2-maple/dead-maple-2-1.png"]
-
-tree_3_dead_maple = ["assets/seers-village-maples-dead/tree-3-maple/dead-maple-3-1.png"]
-
-tree_4_dead_maple = ["assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-1.png",
-                     "assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-2.png"]
-
-
 def isTreeBroken(current_tree):
     tree = None
     if current_tree == 1:
@@ -328,7 +310,7 @@ def chopTreesMaplesSeers():
 
         if amountOfMapleLogs() < 23:  # did swing is shit didSwing()
             print("chopping now!")
-            time.sleep(random.randint(36, 38)) # does not work well if other players
+            time.sleep(random.randint(36, 38))  # does not work well if other players
             for i in range(0, 60):
                 if isTreeBroken(main_bot.getLastTreeChopped()):
                     break

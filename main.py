@@ -200,6 +200,12 @@ def locateLog():
         return log
 
 
+maple_deposit = ["assets/seers-village-maples/maple-deposit/deposit-maple-1-1.png",
+                 "assets/seers-village-maples/maple-deposit/deposit-maple-1-2.png"]
+bank_images = ["assets/seers-village-maples/bank/bank-1-seer.png",
+               "assets/seers-village-maples/bank/bank-2-seer.png"]
+
+
 def bankAtSeers():
     """
     Banks at seers village
@@ -210,8 +216,13 @@ def bankAtSeers():
     Returns:
         None
     """
-    bank = pyautogui.locateCenterOnScreen("assets/seers-village-maples/bank-seers.png", confidence=0.85,
-                                          grayscale=False)
+    bank = None
+    for bank_image in bank_images:
+        bank = pyautogui.locateCenterOnScreen(bank_image, confidence=0.85,
+                                              grayscale=False, limit=2)
+        if bank is not None:
+            break
+
     if bank is not None:  # may need to type bank code
         try:
             hc.move((bank.x, bank.y), random.uniform(.5, .8))
@@ -220,10 +231,18 @@ def bankAtSeers():
             log = locateLog()
             hc.move((log.x, log.y), random.uniform(.5, .8))
             pyautogui.click(button="right")
-            deposit_button = pyautogui.locateCenterOnScreen("assets/seers-village-maples/deposit-all-maple-logs.png",
-                                                            confidence=0.70,
-                                                            grayscale=False,
-                                                            limit=3)
+            deposit_button = None
+            for image in maple_deposit:
+                deposit_button = pyautogui.locateCenterOnScreen(image,
+                                                                confidence=0.70,
+                                                                grayscale=False,
+                                                                limit=2)
+                if deposit_button is not None:
+                    break
+            if deposit_button is None:
+                print("could not find deposit button, fatal error")
+                time.sleep(1)
+                quit()
             hc.move((deposit_button.x, deposit_button.y),
                     random.uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
             pyautogui.click(button="left")
@@ -306,9 +325,9 @@ def chopTreesMaplesSeers():
         pyautogui.click(button="left")
         time.sleep(random.randint(4, 5))
 
-        if didSwing() and amountOfMapleLogs() < 26:
+        if amountOfMapleLogs() < 23:  # did swing is shit didSwing()
             print("chopping now!")
-            time.sleep(random.randint(8, 14))
+            time.sleep(random.randint(10, 14))
             for i in range(0, 60):
                 if isTreeBroken(main_bot.getLastTreeChopped()):
                     break

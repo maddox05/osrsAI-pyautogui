@@ -2,7 +2,8 @@ tree_1_maple_images = ["assets/seers-village-maples/tree-1-maple/tree-maple-1-1.
                        "assets/seers-village-maples/tree-1-maple/tree-maple-1-2.png"]
 
 tree_2_maple_images = ["assets/seers-village-maples/tree-2-maple/tree-maple-2-1.png",
-                       "assets/seers-village-maples/tree-2-maple/tree-maple-2-2.png"]
+                       "assets/seers-village-maples/tree-2-maple/tree-maple-2-2.png",
+                       "assets/seers-village-maples/tree-2-maple/MAC-maple-2-1.png"]
 
 tree_3_maple_images = ["assets/seers-village-maples/tree-3-maple/tree-maple-3-1.png"]
 

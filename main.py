@@ -39,8 +39,8 @@ def smooth_scroll(amount):
     """
     Smoothly scrolls the content by the specified amount.
 
-    This function uses advanced pyautogui to provide a seamless scrolling experience,
-    reducing jitters and ensuring a visually pleasing and user-friendly interface.
+    This function advances pyautogui scroll function to provide a seamless scrolling experience,
+    reducing jitters and ensuring a visually pleasing and user-friendly experience.
 
     Args:
         amount (int): The amount by which the content should be scrolled.

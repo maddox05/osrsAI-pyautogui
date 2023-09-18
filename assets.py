@@ -28,3 +28,12 @@ tree_4_dead_maple = ["assets/seers-village-maples-dead/tree-4-maple/dead-maple-4
 
 compass_images = ["assets/compass/compass-1.png",
                   "assets/compass/compass-2.png"]
+
+def printAsiccArt():
+    print(" __  __              _       _                      __     ___   ")
+    print("|  \/  |  __ _    __| |   __| |    ___    __ __    /  \   | __|  ")
+    print("| |\/| | / _` |  / _` |  / _` |   / _ \   \ \ /   | () |  |__ \  ")
+    print("|_|__|_| \__,_|  \__,_|  \__,_|   \___/   /_\_\   _\__/   |___/  ")
+    print("By Maddox05 (https://github.com/maddox05)")
+
+

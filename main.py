@@ -1,5 +1,5 @@
-
 try:
+    import os
     import pyautogui
     import PIL
     import random
@@ -9,13 +9,22 @@ try:
 
     from creator import BotCreator
     from assets import *
+
     # for macOS version of PIL
-    __PIL_TUPLE_VERSION = tuple(int(x) for x in PIL.__version__.split("."))
-    pyscreeze.PIL__version__ = __PIL_TUPLE_VERSION
+    if os.getenv("HOME"):  # in mac and linux but not in windows
+        print("MacOS is not supported yet, quitting now")  # remove when macOS is supoorted
+        time.sleep(1.5)
+        quit()
+        __PIL_TUPLE_VERSION = tuple(int(x) for x in PIL.__version__.split("."))
+        pyscreeze.PIL__version__ = __PIL_TUPLE_VERSION
+    else:
+        print("Windows detected")
+
     ##############################
 except ImportError as e:
     # Log the specific error message and traceback
     import logging
+
     logging.error(f"Failed to import a module: {e}")
     raise  # Re-raise the exception for further diagnosis
 
@@ -49,7 +58,7 @@ def smooth_scroll(amount):
     Returns:
         None
     """
-    if amount == 5000:
+    if amount == 5000:  # scrolls different depending on windows or macOS
         pyautogui.scroll(clicks=500)
         pyautogui.scroll(clicks=500)
         pyautogui.scroll(clicks=500)
@@ -69,6 +78,15 @@ def smooth_scroll(amount):
 
 
 def start():
+
+    printAsiccArt()
+    time.sleep(.5)
+    print("Starting bot")
+    time.sleep(.5)
+    screen_size = pyautogui.size()
+    time.sleep(.5)
+    print(f"your screen size is {screen_size} if this is incorrect than open an issue on github.")
+    time.sleep(2)
     compass = None
     for image in compass_images:
         compass = pyautogui.locateCenterOnScreen(image, confidence=0.80, grayscale=False)

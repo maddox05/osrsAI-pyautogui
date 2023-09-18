@@ -20,6 +20,8 @@ Before using this bot, make sure you have the following prerequisites installed:
 - Python 3.x: You can download it from [python.org](https://www.python.org/downloads/).
 - PyAutoGUI: Install it using `pip install pyautogui`.
 - Pillow (PIL): Install it using `pip install pillow`.
+- PyClick: Install it using `pip install pyclick`.
+- OpenCV: Install it using `pip install opencv-python`.
 
 ## Installation
 

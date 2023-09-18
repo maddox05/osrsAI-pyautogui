@@ -1,19 +1,10 @@
-import pyautogui
-import random
-
-tree_1_maple_images = ["assets/seers-village-maples/tree-1-maple/tree-maple-1-1.png",
-                       "assets/seers-village-maples/tree-1-maple/tree-maple-1-2.png"]
-
-tree_2_maple_images = ["assets/seers-village-maples/tree-2-maple/tree-maple-2-1.png",
-                       "assets/seers-village-maples/tree-2-maple/tree-maple-2-2.png"]
-
-tree_3_maple_images = ["assets/seers-village-maples/tree-3-maple/tree-maple-3-1.png"]
-
-tree_4_maple_images = ["assets/seers-village-maples/tree-4-maple/tree-maple-4-1.png",
-                       "assets/seers-village-maples/tree-4-maple/tree-maple-4-2.png"]
 
 
 class BotCreator:
+    """
+    Used to create different instances of the bot, not fully implemented yet
+
+    """
     trees_chopped = 0
     fires_made = 0
     times_banked = 0
@@ -60,41 +51,3 @@ class BotCreator:
 
     def setLastTreeChopped(self, tree):
         self.last_tree_chopped = tree
-
-    def randomTreeChooser(self):
-        """
-        Chooses a random tree on the screen and returns it.
-
-        Loops until a tree is found.
-
-        Args:
-            self: instance of the bot
-
-        Returns:
-            the tree object that was chosen
-    """
-        tree = None
-        while tree is None:
-            random_tree = random_tree = random.randint(1, 4)
-
-            if random_tree == 1:
-                for image in tree_1_maple_images:
-                    tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
-
-            elif random_tree == 2:
-                for image in tree_2_maple_images:
-                    tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
-            elif random_tree == 3:
-                for image in tree_2_maple_images:
-                    tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
-            else:
-                for image in tree_2_maple_images:
-                    tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
-                # TODO tree 1 was chosen
-            if tree is not None:
-                print(f"tree {random_tree} was chosen")
-                self.setLastTreeChopped(random_tree)
-                return tree
-            else:
-                print(f"tree {random_tree} was not found")
-                continue

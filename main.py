@@ -14,7 +14,18 @@ from creator import BotCreator
  * @version September 17, 2023
 """
 
-hc = HumanClicker() # init human clicker
+hc = HumanClicker()  # init human clicker
+
+tree_1_maple_images = ["assets/seers-village-maples/tree-1-maple/tree-maple-1-1.png",
+                       "assets/seers-village-maples/tree-1-maple/tree-maple-1-2.png"]
+
+tree_2_maple_images = ["assets/seers-village-maples/tree-2-maple/tree-maple-2-1.png",
+                       "assets/seers-village-maples/tree-2-maple/tree-maple-2-2.png"]
+
+tree_3_maple_images = ["assets/seers-village-maples/tree-3-maple/tree-maple-3-1.png"]
+
+tree_4_maple_images = ["assets/seers-village-maples/tree-4-maple/tree-maple-4-1.png",
+                       "assets/seers-village-maples/tree-4-maple/tree-maple-4-2.png"]
 
 
 def smooth_scroll(amount):
@@ -70,6 +81,41 @@ def start():
     pyautogui.keyUp("up")
 
 
+def randomTreeChooser():
+    """
+    Chooses a random tree on the screen and returns it.
+
+    Loops until a tree is found.
+
+    Returns:
+        the tree object that was chosen
+"""
+    tree = None
+    while tree is None:
+        random_tree = random_tree = random.randint(1, 4)
+
+        if random_tree == 1:
+            for image in tree_1_maple_images:
+                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+
+        elif random_tree == 2:
+            for image in tree_2_maple_images:
+                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+        elif random_tree == 3:
+            for image in tree_2_maple_images:
+                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+        else:
+            for image in tree_2_maple_images:
+                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+        if tree is not None:
+            print(f"tree {random_tree} was chosen")
+            main_bot.setLastTreeChopped(random_tree)
+            return tree
+        else:
+            print(f"tree {random_tree} was not found")
+            continue
+
+
 def reset():
     """
     Resets the player to the default position you picked.
@@ -91,7 +137,7 @@ def reset():
     else:
         print("could not reset, ending now")
         time.sleep(1)
-        #return "Failed"
+        # return "Failed"
         quit()
 
 
@@ -198,6 +244,52 @@ def bankAtSeers():
         quit()
 
 
+tree_1_dead_maple = ["assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-1.png",
+                     "assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-2.png",
+                     "assets/seers-village-maples-dead/tree-1-maple/dead-maple-1-3.png"]
+
+tree_2_dead_maple = ["assets/seers-village-maples-dead/tree-2-maple/dead-maple-2-1.png"]
+
+tree_3_dead_maple = ["assets/seers-village-maples-dead/tree-3-maple/dead-maple-3-1.png"]
+
+tree_4_dead_maple = ["assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-1.png",
+                     "assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-2.png"]
+
+
+def isTreeBroken(current_tree):
+    tree = None
+    if current_tree == 1:
+        for image in tree_1_dead_maple:
+            tree = pyautogui.locateCenterOnScreen(image, confidence=0.90, grayscale=False, limit=1)
+            if tree is not None:
+                print(f"tree {main_bot.getLastTreeChopped()} is broken")
+                return True
+    elif current_tree == 2:
+        for image in tree_2_dead_maple:
+            tree = pyautogui.locateCenterOnScreen(image, confidence=0.90, grayscale=False, limit=1)
+            if tree is not None:
+                print(f"tree {main_bot.getLastTreeChopped()} is broken")
+                return True
+    elif current_tree == 3:
+        for image in tree_2_dead_maple:
+            tree = pyautogui.locateCenterOnScreen(image, confidence=0.90, grayscale=False, limit=1)
+            if tree is not None:
+                print(f"tree {main_bot.getLastTreeChopped()} is broken")
+                return True
+    else:
+        for image in tree_2_dead_maple:
+            tree = pyautogui.locateCenterOnScreen(image, confidence=0.90, grayscale=False, limit=1)
+            if tree is not None:
+                print(f"tree {main_bot.getLastTreeChopped()} is broken")
+                return True
+    if tree is not None:
+        print(f"tree {main_bot.getLastTreeChopped()} is broken")
+        return True
+    else:
+        print(f"tree {main_bot.getLastTreeChopped()} is NOT broken")
+        return False
+
+
 def chopTreesMaplesSeers():
     """
     Recursive loop that chops trees, banks, and repeats
@@ -208,7 +300,7 @@ def chopTreesMaplesSeers():
         None (it is recursive)
     """
     # reset()
-    tree = main_bot.randomTreeChooser()  # fix later but call with certain instance of bot
+    tree = randomTreeChooser()  # fix later but call with certain instance of bot
     if tree is not None:
         hc.move((tree.x, tree.y), random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
         pyautogui.click(button="left")
@@ -216,7 +308,12 @@ def chopTreesMaplesSeers():
 
         if didSwing() and amountOfMapleLogs() < 26:
             print("chopping now!")
-            time.sleep(random.randint(65, 70))  # should add something to check if tree is finished chopping
+            time.sleep(random.randint(8, 14))
+            for i in range(0, 60):
+                if isTreeBroken(main_bot.getLastTreeChopped()):
+                    break
+                else:
+                    time.sleep(random.uniform(5, 7))
             if reset() == "Success":
                 main_bot.addTreeChopped()
                 chopTreesMaplesSeers()
@@ -232,7 +329,7 @@ def chopTreesMaplesSeers():
                     time.sleep(random.uniform(9, 11))
 
                     chopTreesMaplesSeers()
-                else:
+                else:  # should never happen as reset quits when it fails
                     print("could not reset, fatal error")
                     time.sleep(2)
                     quit()

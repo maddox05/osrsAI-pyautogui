@@ -3,7 +3,6 @@
 class BotCreator:
     """
     Used to create different instances of the bot, not fully implemented yet
-
     """
     trees_chopped = 0
     fires_made = 0

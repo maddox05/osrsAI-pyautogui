@@ -29,19 +29,50 @@ except ImportError as e:
     raise  # Re-raise the exception for further diagnosis
 
 """
- * A Osrs bot made using pyautogui
+ * A OSRS AI bot made using pyautogui
  *
  * Made for Fun
  *
  * @author Maddox Schmidlkofer
  * @version September 17, 2023
 """
+
+# Constants
+FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
+
 try:
     hc = HumanClicker()  # init human clicker
 except:
-    print("Failed to initialize human clicker, fatal error")
+    print("Failed to initialize human clicker (open a issue on github)")
+    print(FATAL_ERROR)
     time.sleep(5)
     quit()
+
+def stopBot():
+    """
+    Stops the bot and quits the program.
+
+    Returns:
+        None
+    """
+    print("Stopping bot")
+    time.sleep(1)
+    quit()
+
+
+def loopImages(image_set, limit, confidence, grayscale):
+    """
+    Loops through the images in the assets folder and prints them to the console.
+
+    Returns:
+        Image object that is found on screen // can return none if no image is found
+    """
+    return_image = None
+    for image in image_set:
+        return_image = pyautogui.locateCenterOnScreen(image, confidence=confidence, grayscale=grayscale, limit=limit)
+        if return_image is not None:
+            break
+    return return_image
 
 
 def smooth_scroll(amount):
@@ -52,13 +83,13 @@ def smooth_scroll(amount):
     reducing jitters and ensuring a visually pleasing and user-friendly experience.
 
     Args:
-        amount (int): The amount by which the content should be scrolled.
+        amount (int): The amount by which the content should be scrolled. Same amount as used in pyautogui will be scrolled, but the scrolling will be smoother.
         * should be positive or negative, very case specific
 
     Returns:
         None
     """
-    if amount == 5000:  # scrolls different depending on windows or macOS
+    if amount == 5000:  # scrolls different depending on windows or macOS # make python lib with this use math though
         pyautogui.scroll(clicks=500)
         pyautogui.scroll(clicks=500)
         pyautogui.scroll(clicks=500)
@@ -77,8 +108,13 @@ def smooth_scroll(amount):
         pyautogui.scroll(clicks=-500)
 
 
-def start():
+def start():  # When instances of bot are created added to this program, this function will be called every time a new bot is created
 
+    """
+        Starts up the script and gets the user ready to chop trees.
+        Returns:
+            None
+    """
     printAsiccArt()
     time.sleep(.5)
     print("Starting bot")
@@ -88,18 +124,16 @@ def start():
     print(f"your screen size is {screen_size} if this is incorrect than open an issue on github.")
     time.sleep(2)
     compass = None
-    for image in compass_images:
-        compass = pyautogui.locateCenterOnScreen(image, confidence=0.80, grayscale=False)
-        if compass is not None:
-            break
+    compass = loopImages(compass_images, limit=3, confidence=0.75, grayscale=False)
     if compass is not None:
         hc.move((compass.x, compass.y), random.uniform(.2, .8))
         pyautogui.click(button="left")
         hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
     else:
-        print("could not find compass and cannot center direction to north\nfatal error\nquitting now")
+        print("could not find compass and cannot center direction to north")
+        print(FATAL_ERROR)
         time.sleep(2)
-        quit()
+        stopBot()
     # type in username and password
     time.sleep(.4)
     smooth_scroll(5000)
@@ -119,24 +153,22 @@ def randomTreeChooser():
 
     Returns:
         the tree object that was chosen
-"""
+    """
     tree = None
     while tree is None:
         random_tree = random_tree = random.randint(1, 4)
 
         if random_tree == 1:
-            for image in tree_1_maple_images:
-                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+            tree = loopImages(tree_1_maple_images, limit=3, confidence=0.75, grayscale=False)
 
         elif random_tree == 2:
-            for image in tree_2_maple_images:
-                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+            tree = loopImages(tree_2_maple_images, limit=3, confidence=0.75, grayscale=False)
+
         elif random_tree == 3:
-            for image in tree_2_maple_images:
-                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+            tree = loopImages(tree_3_maple_images, limit=3, confidence=0.75, grayscale=False)
+
         else:
-            for image in tree_2_maple_images:
-                tree = pyautogui.locateCenterOnScreen(image, confidence=0.75, grayscale=False, limit=3)
+            tree = loopImages(tree_4_maple_images, limit=3, confidence=0.75, grayscale=False)
         if tree is not None:
             print(f"tree {random_tree} was chosen")
             main_bot.setLastTreeChopped(random_tree)
@@ -156,7 +188,7 @@ def reset():
         Success if reset was successful,
         Quit if not successful
     """
-    reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.30, grayscale=False)
+    reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.30, grayscale=False, limit=2)
     if reset_spot is not None:
         hc.move((reset_spot.x, reset_spot.y),
                 random.uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
@@ -165,10 +197,9 @@ def reset():
         print("reset successful")
         return "Success"
     else:
-        print("could not reset, ending now")
+        print(FATAL_ERROR)
         time.sleep(1)
-        # return "Failed"
-        quit()
+        stopBot()
 
 
 def isInventoryFull():
@@ -255,18 +286,11 @@ def bankAtSeers():
             log = locateLog()
             hc.move((log.x, log.y), random.uniform(.5, .8))
             pyautogui.click(button="right")
-            deposit_button = None
-            for image in maple_deposit:
-                deposit_button = pyautogui.locateCenterOnScreen(image,
-                                                                confidence=0.70,
-                                                                grayscale=False,
-                                                                limit=2)
-                if deposit_button is not None:
-                    break
+            deposit_button = loopImages(maple_deposit, limit=3, confidence=0.75, grayscale=False)
             if deposit_button is None:
                 print("could not find deposit button, fatal error")
                 time.sleep(1)
-                quit()
+                stopBot()
             hc.move((deposit_button.x, deposit_button.y),
                     random.uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
             pyautogui.click(button="left")
@@ -277,17 +301,28 @@ def bankAtSeers():
             print("banked successfully")
 
         except:
-            print("failed to bank, fatal error")
+            print("failed to bank")
+            print(FATAL_ERROR)
             time.sleep(2)
-            quit()
+            stopBot()
 
     else:
-        print("failed to bank, fatal error")
+        print("failed to bank")
+        print(FATAL_ERROR)
         time.sleep(1)
-        quit()
+        stopBot()
 
 
-def isTreeBroken(current_tree):
+def isTreeBroken(current_tree):  # TODO: fix this
+    """
+    Checks if the tree is broken
+    Args:
+        current_tree:
+
+    Returns:
+        True or False depending on if the current tree is broken
+
+    """
     tree = None
     if current_tree == 1:
         for image in tree_1_dead_maple:
@@ -337,7 +372,7 @@ def chopTreesMaplesSeers():
         pyautogui.click(button="left")
         time.sleep(random.randint(4, 5))
 
-        if amountOfMapleLogs() < 23:  # did swing is shit didSwing()
+        if amountOfMapleLogs() < 23:
             print("chopping now!")
             time.sleep(random.randint(36, 38))  # does not work well if other players
             for i in range(0, 60):
@@ -349,25 +384,27 @@ def chopTreesMaplesSeers():
                 main_bot.addTreeChopped()
                 chopTreesMaplesSeers()
             else:
-                print("could not reset fatal error")
+                print("could not reset")
+                print(FATAL_ERROR)
                 time.sleep(1)
-                quit()
+                stopBot()
         else:
-            if reset() == "Success":
-                bankAtSeers()
-                if reset() == "Success":
-                    print("sleeping for 10 seconds")
+            if reset() == "Success":  # reset
+                bankAtSeers()  # bank
+                if reset() == "Success":  # after banking reset
+                    print("sleeping for 10 seconds")  # let bro walk to reset spot
                     time.sleep(random.uniform(9, 11))
-
-                    chopTreesMaplesSeers()
+                    chopTreesMaplesSeers()  # call it again
                 else:  # should never happen as reset quits when it fails
-                    print("could not reset, fatal error")
+                    print("could not reset")
+                    print(FATAL_ERROR)
                     time.sleep(2)
-                    quit()
+                    stopBot()
     else:
-        print("No trees available.\nfatal error")
+        print("No trees available.")
+        print(FATAL_ERROR)
         time.sleep(1)
-        quit()
+        stopBot()
 
 
 if __name__ == "__main__":

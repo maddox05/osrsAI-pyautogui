@@ -68,8 +68,9 @@ def start():
         pyautogui.click(button="left")
         hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
     else:
-        print("could not find compass and cannot center direction to north")
-        time.sleep(1)
+        print("could not find compass and cannot center direction to north\nfatal error")
+        time.sleep(2)
+        quit()
     # type in username and password
     time.sleep(.4)
     smooth_scroll(5000)
@@ -327,7 +328,7 @@ def chopTreesMaplesSeers():
 
         if amountOfMapleLogs() < 23:  # did swing is shit didSwing()
             print("chopping now!")
-            time.sleep(random.randint(10, 14))
+            time.sleep(random.randint(36, 38)) # does not work well if other players
             for i in range(0, 60):
                 if isTreeBroken(main_bot.getLastTreeChopped()):
                     break

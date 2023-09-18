@@ -24,3 +24,6 @@ tree_3_dead_maple = ["assets/seers-village-maples-dead/tree-3-maple/dead-maple-3
 
 tree_4_dead_maple = ["assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-1.png",
                      "assets/seers-village-maples-dead/tree-4-maple/dead-maple-4-2.png"]
+
+compass_images = ["assets/compass/compass-1.png",
+                  "assets/compass/compass-2.png"]

@@ -1,0 +1,6 @@
+pyautogui~=0.9.54
+Pillow
+pyclick~=0.0.2
+opencv-python
+pyinstaller
+PyScreeze~=0.1.29

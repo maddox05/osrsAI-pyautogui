@@ -1,11 +1,18 @@
+
 try:
     import pyautogui
+    import PIL
     import random
     import time
     from pyclick import HumanClicker
+    import pyscreeze
 
     from creator import BotCreator
     from assets import *
+    # for macOS version of PIL
+    __PIL_TUPLE_VERSION = tuple(int(x) for x in PIL.__version__.split("."))
+    pyscreeze.PIL__version__ = __PIL_TUPLE_VERSION
+    ##############################
 except ImportError as e:
     # Log the specific error message and traceback
     import logging
@@ -62,7 +69,11 @@ def smooth_scroll(amount):
 
 
 def start():
-    compass = pyautogui.locateCenterOnScreen("assets/compass.png", confidence=0.80, grayscale=False)
+    compass = None
+    for image in compass_images:
+        compass = pyautogui.locateCenterOnScreen(image, confidence=0.80, grayscale=False)
+        if compass is not None:
+            break
     if compass is not None:
         hc.move((compass.x, compass.y), random.uniform(.2, .8))
         pyautogui.click(button="left")

@@ -117,13 +117,12 @@ def start():  # When instances of bot are created added to this program, this fu
             None
     """
     printAsiccArt()
-    time.sleep(.5)
+    time.sleep(.1)
     print("Starting bot")
-    time.sleep(.5)
     screen_size = pyautogui.size()
-    time.sleep(.5)
+    time.sleep(.1)
     print(f"your screen size is {screen_size} if this is incorrect than open an issue on github.")
-    time.sleep(2)
+    time.sleep(1)
     compass = None
     compass = loopImages(compass_images, limit=3, confidence=0.75, grayscale=False)
     if compass is not None:
@@ -155,27 +154,37 @@ def randomTreeChooser():
     Returns:
         the tree object that was chosen
     """
+    times_looped = 0
     tree = None
     while tree is None:
+        if times_looped >= 10:
+            print("failed to find trees after 10 tries, resetting")
+            if reset() == "Success":
+                chopTreesMaplesSeers()
+            else:
+                print(FATAL_ERROR)
+                time.sleep(2)
+                stopBot()
         random_tree = random_tree = random.randint(1, 4)
 
         if random_tree == 1:
-            tree = loopImages(tree_1_maple_images, limit=3, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_1_maple_images, limit=2, confidence=0.75, grayscale=False)
 
         elif random_tree == 2:
-            tree = loopImages(tree_2_maple_images, limit=3, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_2_maple_images, limit=2, confidence=0.75, grayscale=False)
 
         elif random_tree == 3:
-            tree = loopImages(tree_3_maple_images, limit=3, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_3_maple_images, limit=2, confidence=0.75, grayscale=False)
 
         else:
-            tree = loopImages(tree_4_maple_images, limit=3, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_4_maple_images, limit=2, confidence=0.75, grayscale=False)
         if tree is not None:
             print(f"tree {random_tree} was chosen")
             main_bot.setLastTreeChopped(random_tree)
             return tree
         else:
             print(f"tree {random_tree} was not found")
+            times_looped += 1
             continue
 
 
@@ -375,20 +384,17 @@ def chopTreesMaplesSeers():
 
         if amountOfMapleLogs() < 23:
             print("chopping now!")
+
             time.sleep(random.randint(36, 38))  # does not work well if other players
             for i in range(0, 60):
                 if isTreeBroken(main_bot.getLastTreeChopped()):
                     break
                 else:
                     time.sleep(random.uniform(5, 7))
-            if reset() == "Success":
-                main_bot.addTreeChopped()
-                chopTreesMaplesSeers()
-            else:
-                print("could not reset")
-                print(FATAL_ERROR)
-                time.sleep(1)
-                stopBot()
+            #if reset() == "Success":
+            main_bot.addTreeChopped()
+            chopTreesMaplesSeers()
+
         else:
             if reset() == "Success":  # reset
                 bankAtSeers()  # bank

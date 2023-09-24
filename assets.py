@@ -7,7 +7,7 @@ def getFullPath(image_array, folder) -> list:
     return image_array
 
 
-# gets full path of images and puts them in array
+# gets full path of images and puts them in array.
 tree_1_maple_images = getFullPath(os.listdir("assets/seers-village-maples/tree-1-maple/"),
                                   "assets/seers-village-maples/tree-1-maple/")
 

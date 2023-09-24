@@ -50,3 +50,4 @@ class BotCreator:
 
     def setLastTreeChopped(self, tree):
         self.last_tree_chopped = tree
+

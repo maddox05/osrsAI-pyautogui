@@ -38,7 +38,6 @@ except ImportError as e:
  * @version September 17, 2023
 """
 
-
 # Constants
 FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
 
@@ -378,14 +377,13 @@ def chopTreesMaplesSeers():
         None (it is recursive)
     """
     # reset()
-    tree = randomTreeChooser()  # fix later but call with certain instance of bot
-    if tree is not None:
-        hc.move((tree.x, tree.y), random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
-        pyautogui.click(button="left")
-        time.sleep(random.randint(4, 5))
+    if amountOfMapleLogs() < 24:
+        tree = randomTreeChooser()  # fix later but call with certain instance of bot
 
-        if amountOfMapleLogs() < 23:
-            print("chopping now!")
+        if tree is not None:
+            hc.move((tree.x, tree.y), random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
+            pyautogui.click(button="left")
+            time.sleep(random.randint(4, 5))
 
             time.sleep(random.randint(36, 38))  # does not work well if other players
             for i in range(0, 60):
@@ -396,24 +394,24 @@ def chopTreesMaplesSeers():
             # if reset() == "Success":
             main_bot.addTreeChopped()
             chopTreesMaplesSeers()
-
         else:
-            if reset() == "Success":  # reset
-                bankAtSeers()  # bank
-                if reset() == "Success":  # after banking reset
-                    print("sleeping for 10 seconds")  # let bro walk to reset spot
-                    time.sleep(random.uniform(9, 11))
-                    chopTreesMaplesSeers()  # call it again
-                else:  # should never happen as reset quits when it fails
-                    print("could not reset")
-                    print(FATAL_ERROR)
-                    time.sleep(2)
-                    stopBot()
+            print("No trees available.")
+            print(FATAL_ERROR)
+            time.sleep(1)
+            stopBot()
+
     else:
-        print("No trees available.")
-        print(FATAL_ERROR)
-        time.sleep(1)
-        stopBot()
+        if reset() == "Success":  # reset
+            bankAtSeers()  # bank
+            if reset() == "Success":  # after banking reset
+                print("sleeping for 10 seconds")  # let bro walk to reset spot
+                time.sleep(random.uniform(9, 11))
+                chopTreesMaplesSeers()  # call it again
+            else:  # should never happen as reset quits when it fails
+                print("could not reset")
+                print(FATAL_ERROR)
+                time.sleep(2)
+                stopBot()
 
 
 if __name__ == "__main__":

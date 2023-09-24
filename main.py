@@ -12,7 +12,7 @@ try:
 
     # for macOS version of PIL
     if os.getenv("HOME"):  # in mac and linux but not in windows
-        print("MacOS is not supported yet, quitting now")  # remove when macOS is supoorted
+        print("MacOS is not supported yet, quitting now")  # remove when macOS is supported
         time.sleep(1.5)
         quit()
         # mac cant read images as they have improper permissions
@@ -48,6 +48,7 @@ except:
     print(FATAL_ERROR)
     time.sleep(5)
     quit()
+
 
 def stopBot():
     """
@@ -391,7 +392,7 @@ def chopTreesMaplesSeers():
                     break
                 else:
                     time.sleep(random.uniform(5, 7))
-            #if reset() == "Success":
+            # if reset() == "Success":
             main_bot.addTreeChopped()
             chopTreesMaplesSeers()
 

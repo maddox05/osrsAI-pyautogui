@@ -10,11 +10,17 @@ try:
     from creator import BotCreator
     from assets import *
 
+    screen_size = pyautogui.size()
+    screen_size_multiplier = 1
+    time.sleep(.1)
+    print(f"your screen size is {screen_size} if this is incorrect than open an issue on github.")
     # for macOS version of PIL
     if os.getenv("HOME"):  # in mac and linux but not in windows
-        print("MacOS is not supported yet, quitting now")  # remove when macOS is supported
-        time.sleep(1.5)
-        quit()
+        yes_or_no = input("would you like to double screen size? (MACOS retina fix) y or n\n")  # remove when macOS is supported
+        if yes_or_no == "y":
+            screen_size_multiplier = 2
+            screen_size = (screen_size[0] * 2, screen_size[1] * 2)
+            print(f"your New screen size is {screen_size} if this is incorrect than open an issue on github.")
         # mac cant read images as they have improper permissions
         __PIL_TUPLE_VERSION = tuple(int(x) for x in PIL.__version__.split("."))
         pyscreeze.PIL__version__ = __PIL_TUPLE_VERSION
@@ -120,14 +126,11 @@ def start():  # When instances of bot are created added to this program, this fu
     printAsiccArt()
     time.sleep(.1)
     print("Starting bot")
-    screen_size = pyautogui.size()
-    time.sleep(.1)
-    print(f"your screen size is {screen_size} if this is incorrect than open an issue on github.")
-    time.sleep(1)
+
     compass = None
     compass = loopImages(compass_images, limit=3, confidence=0.75, grayscale=False)
     if compass is not None:
-        hc.move((compass.x, compass.y), random.uniform(.2, .8))
+        hc.move((round(compass.x/screen_size_multiplier), round(compass.y/screen_size_multiplier)), random.uniform(.2, .8))
         pyautogui.click(button="left")
         hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
     else:
@@ -169,16 +172,16 @@ def randomTreeChooser():
         random_tree = random_tree = random.randint(1, 4)
 
         if random_tree == 1:
-            tree = loopImages(tree_1_maple_images, limit=2, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_1_maple_images, limit=1, confidence=0.75, grayscale=False)
 
         elif random_tree == 2:
-            tree = loopImages(tree_2_maple_images, limit=2, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_2_maple_images, limit=1, confidence=0.75, grayscale=False)
 
         elif random_tree == 3:
-            tree = loopImages(tree_3_maple_images, limit=2, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_3_maple_images, limit=1, confidence=0.75, grayscale=False)
 
         else:
-            tree = loopImages(tree_4_maple_images, limit=2, confidence=0.75, grayscale=False)
+            tree = loopImages(tree_4_maple_images, limit=1, confidence=0.75, grayscale=False)
         if tree is not None:
             print(f"tree {random_tree} was chosen")
             main_bot.setLastTreeChopped(random_tree)
@@ -201,7 +204,7 @@ def reset():
     """
     reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.30, grayscale=False, limit=2)
     if reset_spot is not None:
-        hc.move((reset_spot.x, reset_spot.y),
+        hc.move((round(reset_spot.x/screen_size_multiplier), round(reset_spot.y/screen_size_multiplier)),
                 random.uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
         pyautogui.click(button="left")
         time.sleep(random.randint(3, 5))
@@ -291,18 +294,18 @@ def bankAtSeers():
 
     if bank is not None:  # may need to type bank code
         try:
-            hc.move((bank.x, bank.y), random.uniform(.5, .8))
+            hc.move((round(bank.x/screen_size_multiplier), round(bank.y/screen_size_multiplier)), random.uniform(.5, .8))
             pyautogui.click(button="left")
             time.sleep(random.uniform(11, 12))
             log = locateLog()
-            hc.move((log.x, log.y), random.uniform(.5, .8))
+            hc.move((round(log.x/screen_size_multiplier), round(log.y/screen_size_multiplier)), random.uniform(.5, .8))
             pyautogui.click(button="right")
             deposit_button = loopImages(maple_deposit, limit=3, confidence=0.75, grayscale=False)
             if deposit_button is None:
                 print("could not find deposit button, fatal error")
                 time.sleep(1)
                 stopBot()
-            hc.move((deposit_button.x, deposit_button.y),
+            hc.move((round(deposit_button.x/screen_size_multiplier), round(deposit_button.y/screen_size_multiplier)),
                     random.uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
             pyautogui.click(button="left")
             pyautogui.keyDown("esc")
@@ -381,7 +384,7 @@ def chopTreesMaplesSeers():
         tree = randomTreeChooser()  # fix later but call with certain instance of bot
 
         if tree is not None:
-            hc.move((tree.x, tree.y), random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
+            hc.move((round(tree.x/screen_size_multiplier), round(tree.y/screen_size_multiplier)), random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
             pyautogui.click(button="left")
             time.sleep(random.randint(4, 5))
 

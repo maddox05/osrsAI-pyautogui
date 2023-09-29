@@ -118,7 +118,7 @@ def smooth_scroll(amount):
 
 
 def start():  # When instances of bot are created added to this program, this function will be called every time a
-    # new bot is created
+    # new bot is created and started
 
     """
         Starts up the script and gets the program ready to run.

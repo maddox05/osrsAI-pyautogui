@@ -5,7 +5,7 @@ class BotCreator:
     """
     Used to create different instances of the bot, not fully implemented yet
     """
-    # fires_made = 0
+    # fires_made = 0 # not used yet
     times_banked = 0
 
     def __init__(self, location, username, password, bank_pin):

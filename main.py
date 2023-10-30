@@ -1,3 +1,5 @@
+import threading
+
 from mapletree import MapleCutter
 from definitions import *
 
@@ -37,8 +39,6 @@ except ImportError as e:
 
     logging.error(f"Failed to import a module: {e}")
     raise  # Re-raise the exception for further diagnosis
-
-
 
 # Constants
 FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
@@ -84,6 +84,7 @@ def start():  # When instances of bot are created added to this program, this fu
     time.sleep(random.randrange(3, 4))
     pyautogui.keyUp("up")
 
+
 """
  * A OSRS AI bot made using pyautogui
  *
@@ -93,7 +94,9 @@ def start():  # When instances of bot are created added to this program, this fu
  * @version September 17, 2023
 """
 if __name__ == "__main__":
+    # create with gui or file
     maple_bot = MapleCutter("Seers_Village", "bot", "1234", "1234")  # look at later import creator
     time.sleep(2)
-    start() #maple_bot.start()
-    maple_bot.chopTreesMaplesSeers()
+    start()  # maple_bot.start()
+    threading.Thread(target=maple_bot.chopTreesMaplesSeers()).start()
+    # maple_bot.chopTreesMaplesSeers()

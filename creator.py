@@ -1,4 +1,4 @@
-from main import *
+from definitions import *
 
 
 class BotCreator:
@@ -29,15 +29,6 @@ class BotCreator:
     def getPassword(self):
         return self.password
 
-    def getFiresMade(self):
-        return self.fires_made
-
-    def getTreesChopped(self):
-        return self.trees_chopped
-
-    def addTreeChopped(self):
-        self.trees_chopped += 1
-
     def getTimesBanked(self):
         return self.times_banked
 
@@ -49,6 +40,39 @@ class BotCreator:
 
     def setLastTreeChopped(self, tree):
         self.last_tree_chopped = tree
+
+    def start(self):  # When instances of bot are created added to this program, this function will be called every time a bot is created
+        pass
+    """
+        Starts up the script and gets the program ready to run.
+        Returns:
+            None
+    """
+    printAsiccArt()
+    time.sleep(.1)
+    print("Starting bot")
+
+    compass = None
+    compass = loopImages(compass_images, limit=3, confidence=0.75, grayscale=False)
+    if compass is not None:
+        hc.move((round(compass.x / screen_size_multiplier), round(compass.y / screen_size_multiplier)),
+                random.uniform(.2, .8))
+        pyautogui.click(button="left")
+        hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
+    else:
+        print("could not find compass and cannot center direction to north")
+        print(FATAL_ERROR)
+        time.sleep(2)
+        stopBot()
+    # type in username and password
+    time.sleep(.4)
+    smooth_scroll(5000)
+    time.sleep(.3)
+    smooth_scroll(-2500)
+    time.sleep(.2)
+    pyautogui.keyDown("up")
+    time.sleep(random.randrange(3, 4))
+    pyautogui.keyUp("up")
 
 
 class MapleCutter(BotCreator):

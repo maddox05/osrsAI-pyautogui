@@ -1,3 +1,5 @@
+import creator
+
 try:
     import os
     import pyautogui
@@ -7,7 +9,6 @@ try:
     from pyclick import HumanClicker
     import pyscreeze
 
-    from creator import BotCreator, MapleCutter
     from assets import *
 
     screen_size = pyautogui.size()
@@ -56,121 +57,8 @@ except:
     time.sleep(5)
     quit()
 
-
-def stopBot():
-    """
-    Stops the bot and quits the program.
-
-    Returns:
-        None
-    """
-    print("Stopping bot")
-    time.sleep(1)
-    quit()
-
-
-def loopImages(image_set, limit, confidence, grayscale):
-    """
-    Loops through the images in the assets folder and prints them to the console.
-
-    Returns:
-        Image object that is found on screen // can return none if no image is found
-    """
-    return_image = None
-    for image in image_set:
-        return_image = pyautogui.locateCenterOnScreen(image, confidence=confidence, grayscale=grayscale, limit=limit)
-        if return_image is not None:
-            break
-    return return_image
-
-
-def smooth_scroll(amount):
-    """
-    Smoothly scrolls the content by the specified amount.
-
-    This function advances pyautogui scroll function to provide a seamless scrolling experience,
-    reducing jitters and ensuring a visually pleasing and user-friendly experience.
-
-    Args:
-        amount (int): The amount by which the content should be scrolled. Same amount as used in pyautogui will be scrolled, but the scrolling will be smoother.
-        * should be positive or negative, very case specific
-
-    Returns:
-        None
-    """
-    if amount == 5000:  # scrolls different depending on windows or macOS # make python lib with this use math though
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-        pyautogui.scroll(clicks=500)
-    else:
-        pyautogui.scroll(clicks=-500)
-        pyautogui.scroll(clicks=-500)
-        pyautogui.scroll(clicks=-500)
-        pyautogui.scroll(clicks=-500)
-        pyautogui.scroll(clicks=-500)
-
-
-def start():  # When instances of bot are created added to this program, this function will be called every time a
-    # new bot is created and started
-
-    """
-        Starts up the script and gets the program ready to run.
-        Returns:
-            None
-    """
-    printAsiccArt()
-    time.sleep(.1)
-    print("Starting bot")
-
-    compass = None
-    compass = loopImages(compass_images, limit=3, confidence=0.75, grayscale=False)
-    if compass is not None:
-        hc.move((round(compass.x / screen_size_multiplier), round(compass.y / screen_size_multiplier)),
-                random.uniform(.2, .8))
-        pyautogui.click(button="left")
-        hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
-    else:
-        print("could not find compass and cannot center direction to north")
-        print(FATAL_ERROR)
-        time.sleep(2)
-        stopBot()
-    # type in username and password
-    time.sleep(.4)
-    smooth_scroll(5000)
-    time.sleep(.3)
-    smooth_scroll(-2500)
-    time.sleep(.2)
-    pyautogui.keyDown("up")
-    time.sleep(random.randrange(3, 4))
-    pyautogui.keyUp("up")
-
-
-def didSwing():
-    """
-    Checks if the player has swung the axe yet,
-     using the message box, prone to error as multiple messages don't get deleted,
-    so may check old messages
-    Returns:
-        True if player has swung axe //
-        False if player has not swung axe
-    """
-    did_swing = pyautogui.locateOnScreen("assets/seers-village-maples/u-swing-axe.png", confidence=0.90,
-                                         grayscale=False)
-    if did_swing is not None:
-        return True
-    else:
-        return False
-
-
 if __name__ == "__main__":
-    maple_bot = MapleCutter("Seers_Village", "bot", "1234", "1234")
+    maple_bot = creator.MapleCutter("Seers_Village", "bot", "1234", "1234")  # look at later import creator
     time.sleep(2)
-    start()
+    maple_bot.start()
     maple_bot.chopTreesMaplesSeers()

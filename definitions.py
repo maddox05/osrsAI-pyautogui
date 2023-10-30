@@ -1,4 +1,7 @@
-from main import *
+# Description: Contains all the definitions for the bot, such as the image sets, and the functions that are used in
+# the bot.
+import time
+import pyautogui
 
 
 def stopBot():

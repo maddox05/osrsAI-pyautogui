@@ -1,4 +1,5 @@
-import creator
+from mapletree import MapleCutter
+from definitions import *
 
 try:
     import os
@@ -37,14 +38,7 @@ except ImportError as e:
     logging.error(f"Failed to import a module: {e}")
     raise  # Re-raise the exception for further diagnosis
 
-"""
- * A OSRS AI bot made using pyautogui
- *
- * Made for Fun
- *
- * @author Maddox Schmidlkofer
- * @version September 17, 2023
-"""
+
 
 # Constants
 FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
@@ -57,8 +51,49 @@ except:
     time.sleep(5)
     quit()
 
+
+def start():  # When instances of bot are created added to this program, this function will be called every time a bot is created
+    """
+        Starts up the script and gets the program ready to run.
+        Returns:
+            None
+    """
+    printAsiccArt()
+    time.sleep(.1)
+    print("Starting bot")
+
+    compass = None
+    compass = loopImages(compass_images, limit=3, confidence=0.75, grayscale=False)
+    if compass is not None:
+        hc.move((round(compass.x / screen_size_multiplier), round(compass.y / screen_size_multiplier)),
+                random.uniform(.2, .8))
+        pyautogui.click(button="left")
+        hc.move((round(pyautogui.size().width / 2), round(pyautogui.size().height / 2)), random.uniform(.5, .8))
+    else:
+        print("could not find compass and cannot center direction to north")
+        print(FATAL_ERROR)
+        time.sleep(2)
+        stopBot()
+    # type in username and password
+    time.sleep(.4)
+    smooth_scroll(5000)
+    time.sleep(.3)
+    smooth_scroll(-2500)
+    time.sleep(.2)
+    pyautogui.keyDown("up")
+    time.sleep(random.randrange(3, 4))
+    pyautogui.keyUp("up")
+
+"""
+ * A OSRS AI bot made using pyautogui
+ *
+ * Made for Fun
+ *
+ * @author Maddox Schmidlkofer
+ * @version September 17, 2023
+"""
 if __name__ == "__main__":
-    maple_bot = creator.MapleCutter("Seers_Village", "bot", "1234", "1234")  # look at later import creator
+    maple_bot = MapleCutter("Seers_Village", "bot", "1234", "1234")  # look at later import creator
     time.sleep(2)
-    maple_bot.start()
+    start() #maple_bot.start()
     maple_bot.chopTreesMaplesSeers()

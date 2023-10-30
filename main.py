@@ -1,9 +1,10 @@
-import threading
-
 from mapletree import MapleCutter
 from definitions import *
+from assets import *
+
 
 try:
+    import threading
     import os
     import pyautogui
     import PIL
@@ -11,8 +12,6 @@ try:
     import time
     from pyclick import HumanClicker
     import pyscreeze
-
-    from assets import *
 
     screen_size = pyautogui.size()
     screen_size_multiplier = 1

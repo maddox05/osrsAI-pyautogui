@@ -19,6 +19,10 @@ def stopBot():
 def loopImages(image_set, limit, confidence, grayscale):
     """
     Loops through the images in the assets folder and prints them to the console.
+    Image_set: The set of images to loop through
+    Limit: How many times it checks for the image
+    Confidence: How confident the program is that the image is on the screen (0.0 - 1.0)
+    Grayscale: Whether the image is in grayscale ( never used usually )
 
     Returns:
         Image object that is found on screen // can return none if no image is found

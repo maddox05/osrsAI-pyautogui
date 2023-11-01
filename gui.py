@@ -1,10 +1,15 @@
 """
-Gui to create a Botcreator object.
+Gui to create a Bot Creator object.
 """
 import tkinter
+import threading
 
-root = tkinter.Tk()
 
-root.title("Bot Creator")
+def guiStart():
+    root = tkinter.Tk()
 
-root.mainloop()
+    root.title("Bot Creator")
+    root.mainloop()
+
+
+threading.Thread(target=guiStart()).start()

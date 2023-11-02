@@ -1,7 +1,7 @@
 from mapletree import MapleCutter
 from definitions import *
 from assets import *
-
+from gui import guiStart
 
 try:
     import threading
@@ -28,6 +28,7 @@ try:
         # mac cant read images as they have improper permissions
         __PIL_TUPLE_VERSION = tuple(int(x) for x in PIL.__version__.split("."))
         pyscreeze.PIL__version__ = __PIL_TUPLE_VERSION
+        print("Mac Starting")
     else:
         print("Windows detected")
 
@@ -51,7 +52,9 @@ except:
     quit()
 
 
-def start():  # When instances of bot are created added to this program, this function will be called every time a bot is created
+def start():
+    # When instances of bot are created added to this program, this function will be called every time a
+    # bot is created
     """
         Starts up the script and gets the program ready to run.
         Returns:
@@ -93,9 +96,10 @@ def start():  # When instances of bot are created added to this program, this fu
  * @version September 17, 2023
 """
 if __name__ == "__main__":
-    # create with gui or file
-    maple_bot = MapleCutter("Seers_Village", "bot", "1234", "1234")  # look at later import creator
+    variables = guiStart()
+    # check what variables return
+    # fuck that
+    maple_bot = MapleCutter(variables.get("types_var"), variables.get("username_var"), variables.get("password_var"), variables.get("bank_pin_var"))
     time.sleep(2)
     start()  # maple_bot.start()
     threading.Thread(target=maple_bot.chopTreesMaplesSeers()).start()
-    # maple_bot.chopTreesMaplesSeers()

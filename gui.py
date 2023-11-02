@@ -5,13 +5,14 @@ import tkinter as tk
 import threading
 from mapletree import MapleCutter
 
-bot_type = ["Tree Chopping", "x", "x"]
-tree_locations = ["Seers Village", "x", "x"]
 
 
-def guiStart():
+def guiStart() -> dict:
+    bot_type = ["Tree Chopping", "x", "x"]
+    tree_locations = ["Seers Village", "x", "x"]
     root = tk.Tk()
-    root.geometry("230x320")
+
+    root.geometry("250x340")
 
     types_var = tk.StringVar()
     types_var.set(bot_type[0])
@@ -41,7 +42,6 @@ def guiStart():
     bank_pin_var = tk.StringVar()
     bank_pin = tk.Entry(root, textvariable=bank_pin_var)
     bank_pin.pack(pady=10)
-
     # submit button
     def submit():
         # create a submit button
@@ -51,15 +51,19 @@ def guiStart():
         print(f"Username: {username_var.get()}")
         print(f"Password: {password_var.get()}")
         print(f"Bank Pin: {bank_pin_var.get()}")
+
         root.destroy()
-        # create bot object
+        root.quit()
 
     submit_button = tk.Button(root, text="Submit", command=submit)
     submit_button.pack(pady=5)
 
-
     root.title("Bot Creator")
     root.mainloop()
-
-
-threading.Thread(target=guiStart()).start()
+    return {
+        "types_var": types_var,
+        "locations_var": locations_var,
+        "username_var": username_var,
+        "password_var": password_var,
+        "bank_pin_var": bank_pin_var
+    }

@@ -3,6 +3,7 @@
 import time
 import pyautogui
 
+FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
 
 def stopBot():
     """

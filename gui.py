@@ -6,7 +6,6 @@ import threading
 from mapletree import MapleCutter
 
 
-
 def guiStart() -> dict:
     bot_type = ["Tree Chopping", "x", "x"]
     tree_locations = ["Seers Village", "x", "x"]
@@ -42,6 +41,7 @@ def guiStart() -> dict:
     bank_pin_var = tk.StringVar()
     bank_pin = tk.Entry(root, textvariable=bank_pin_var)
     bank_pin.pack(pady=10)
+
     # submit button
     def submit():
         # create a submit button
@@ -61,9 +61,9 @@ def guiStart() -> dict:
     root.title("Bot Creator")
     root.mainloop()
     return {
-        "types_var": types_var,
-        "locations_var": locations_var,
-        "username_var": username_var,
-        "password_var": password_var,
-        "bank_pin_var": bank_pin_var
+        "types_var": types_var.get(),
+        "locations_var": locations_var.get(),
+        "username_var": username_var.get(),
+        "password_var": password_var.get(),
+        "bank_pin_var": bank_pin_var.get()
     }

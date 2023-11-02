@@ -1,5 +1,8 @@
+from random import random
+
 from creator import BotCreator
 from definitions import *
+from assets import *
 
 
 class MapleCutter(BotCreator):  # extends bot creator
@@ -7,11 +10,12 @@ class MapleCutter(BotCreator):  # extends bot creator
     Maple Tree Cutting bot, inherits from BotCreator
     """
 
-    trees_chopped = 0
-    last_tree_chopped = 0
-
-    def __init__(self, location, username, password, bank_pin):
-        super().__init__(location, username, password, bank_pin)
+    def __init__(self, super_class, screen_size_multiplier):
+        super().__init__(super_class.btype, super_class.location, super_class.username, super_class.password,
+                         super_class.pin, super_class.human_clicker)
+        self.screen_size_multiplier = screen_size_multiplier
+        self.trees_chopped = 0
+        self.last_tree_chopped = 0
 
     def randomTreeChooser(self):
         """
@@ -22,6 +26,7 @@ class MapleCutter(BotCreator):  # extends bot creator
         Returns:
             the tree object that was chosen
         """
+
         times_looped = 0
         tree = None
         while tree is None:
@@ -67,8 +72,9 @@ class MapleCutter(BotCreator):  # extends bot creator
         """
         reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.30, grayscale=False, limit=2)
         if reset_spot is not None:
-            hc.move((round(reset_spot.x / screen_size_multiplier), round(reset_spot.y / screen_size_multiplier)),
-                    random.uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
+            self.human_clicker.move(
+                (round(reset_spot.x / self.screen_size_multiplier), round(reset_spot.y / self.screen_size_multiplier)),
+                random.uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
             pyautogui.click(button="left")
             time.sleep(random.randint(3, 5))
             print("reset successful")
@@ -138,12 +144,12 @@ class MapleCutter(BotCreator):  # extends bot creator
 
         if bank is not None:  # may need to type bank code
             try:
-                hc.move((round(bank.x / screen_size_multiplier), round(bank.y / screen_size_multiplier)),
+                self.human_clicker.move((round(bank.x / self.screen_size_multiplier), round(bank.y / self.screen_size_multiplier)),
                         random.uniform(.5, .8))
                 pyautogui.click(button="left")
                 time.sleep(random.uniform(11, 12))
                 log = self.locateLog()
-                hc.move((round(log.x / screen_size_multiplier), round(log.y / screen_size_multiplier)),
+                self.human_clicker.move((round(log.x / self.screen_size_multiplier), round(log.y / self.screen_size_multiplier)),
                         random.uniform(.5, .8))
                 pyautogui.click(button="right")
                 deposit_button = loopImages(maple_deposit, limit=3, confidence=0.75, grayscale=False)
@@ -151,8 +157,8 @@ class MapleCutter(BotCreator):  # extends bot creator
                     print("could not find deposit button, fatal error")
                     time.sleep(1)
                     stopBot()
-                hc.move((round(deposit_button.x / screen_size_multiplier),
-                         round(deposit_button.y / screen_size_multiplier)),
+                self.human_clicker.move((round(deposit_button.x / self.screen_size_multiplier),
+                         round(deposit_button.y / self.screen_size_multiplier)),
                         random.uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
                 pyautogui.click(button="left")
                 pyautogui.keyDown("esc")
@@ -229,7 +235,7 @@ class MapleCutter(BotCreator):  # extends bot creator
             tree = self.randomTreeChooser()  # fix later but call with certain instance of bot
 
             if tree is not None:
-                hc.move((round(tree.x / screen_size_multiplier), round(tree.y / screen_size_multiplier)),
+                self.human_clicker.move((round(tree.x / self.screen_size_multiplier), round(tree.y / self.screen_size_multiplier)),
                         random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
                 pyautogui.click(button="left")
                 time.sleep(random.randint(4, 5))

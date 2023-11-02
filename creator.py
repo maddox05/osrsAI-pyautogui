@@ -5,14 +5,19 @@ class BotCreator:
     """
     Used to create different instances of the bot, not fully implemented yet
     """
-    # fires_made = 0 # not used yet
-    times_banked = 0
 
-    def __init__(self, location, username, password, bank_pin):
+    # fires_made = 0 # not used yet
+    # times_banked = 0 # is this used by all of them or just 1, is static or not?
+
+    def __init__(self, btype, location, username, password, bank_pin, human_clicker):
+        self.btype = btype
         self.location = location
         self.username = username
         self.password = password
         self.pin = bank_pin
+        self.human_clicker = human_clicker
+        self.times_banked = 0
+
 
     def login(self):
         pass
@@ -40,7 +45,3 @@ class BotCreator:
 
     def setLastTreeChopped(self, tree):
         self.last_tree_chopped = tree
-
-
-
-

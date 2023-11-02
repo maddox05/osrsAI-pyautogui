@@ -1,4 +1,6 @@
 from mapletree import MapleCutter
+from creator import BotCreator
+
 from definitions import *
 from assets import *
 from gui import guiStart
@@ -39,9 +41,6 @@ except ImportError as e:
 
     logging.error(f"Failed to import a module: {e}")
     raise  # Re-raise the exception for further diagnosis
-
-# Constants
-FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
 
 try:
     hc = HumanClicker()  # init human clicker
@@ -99,7 +98,21 @@ if __name__ == "__main__":
     variables = guiStart()
     # check what variables return
     # fuck that
-    maple_bot = MapleCutter(variables.get("types_var"), variables.get("username_var"), variables.get("password_var"), variables.get("bank_pin_var"))
+    if variables.get("types_var") == "Tree Chopping":
+        if variables.get("locations_var") == "Seers Village":
+            maple_bot = MapleCutter(
+                BotCreator(variables.get("types_var"),
+                           variables.get("locations_var"),
+                           variables.get("username_var"),
+                           variables.get("password_var"),
+                           variables.get("bank_pin_var"),
+                           hc),
+                screen_size_multiplier
+            )
+    else:
+        print("Bot DNE")
+        stopBot()
+
     time.sleep(2)
     start()  # maple_bot.start()
     threading.Thread(target=maple_bot.chopTreesMaplesSeers()).start()

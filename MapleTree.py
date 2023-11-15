@@ -1,6 +1,6 @@
-from random import random
+from random import randint, uniform
 
-from creator import BotCreator
+from BotCreator import BotCreator
 from definitions import *
 from assets import *
 
@@ -12,7 +12,7 @@ class MapleCutter(BotCreator):  # extends bot creator
 
     def __init__(self, super_class, screen_size_multiplier):
         super().__init__(super_class.btype, super_class.location, super_class.username, super_class.password,
-                         super_class.pin, super_class.human_clicker)
+                         super_class.pin)
         self.screen_size_multiplier = screen_size_multiplier
         self.trees_chopped = 0
         self.last_tree_chopped = 0
@@ -38,7 +38,7 @@ class MapleCutter(BotCreator):  # extends bot creator
                     print(FATAL_ERROR)
                     time.sleep(2)
                     stopBot()
-            random_tree = random.randint(1, 4)
+            random_tree = randint(1, 4)
 
             if random_tree == 1:
                 tree = loopImages(tree_1_maple_images, limit=1, confidence=0.75, grayscale=False)
@@ -72,11 +72,11 @@ class MapleCutter(BotCreator):  # extends bot creator
         """
         reset_spot = pyautogui.locateCenterOnScreen("assets/pink-reset.png", confidence=0.30, grayscale=False, limit=2)
         if reset_spot is not None:
-            self.human_clicker.move(
+            self.hc.move(
                 (round(reset_spot.x / self.screen_size_multiplier), round(reset_spot.y / self.screen_size_multiplier)),
-                random.uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
+                uniform(.2, .8))  # pyautogui.moveTo(reset_spot.x, reset_spot.y, duration=1)
             pyautogui.click(button="left")
-            time.sleep(random.randint(3, 5))
+            time.sleep(randint(3, 5))
             print("reset successful")
             return "Success"
         else:
@@ -144,22 +144,22 @@ class MapleCutter(BotCreator):  # extends bot creator
 
         if bank is not None:  # may need to type bank code
             try:
-                self.human_clicker.move((round(bank.x / self.screen_size_multiplier), round(bank.y / self.screen_size_multiplier)),
-                        random.uniform(.5, .8))
+                self.hc.move((round(bank.x / self.screen_size_multiplier), round(bank.y / self.screen_size_multiplier)),
+                             uniform(.5, .8))
                 pyautogui.click(button="left")
-                time.sleep(random.uniform(11, 12))
+                time.sleep(uniform(11, 12))
                 log = self.locateLog()
-                self.human_clicker.move((round(log.x / self.screen_size_multiplier), round(log.y / self.screen_size_multiplier)),
-                        random.uniform(.5, .8))
+                self.hc.move((round(log.x / self.screen_size_multiplier), round(log.y / self.screen_size_multiplier)),
+                             uniform(.5, .8))
                 pyautogui.click(button="right")
                 deposit_button = loopImages(maple_deposit, limit=3, confidence=0.75, grayscale=False)
                 if deposit_button is None:
                     print("could not find deposit button, fatal error")
                     time.sleep(1)
                     stopBot()
-                self.human_clicker.move((round(deposit_button.x / self.screen_size_multiplier),
-                         round(deposit_button.y / self.screen_size_multiplier)),
-                        random.uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
+                self.hc.move((round(deposit_button.x / self.screen_size_multiplier),
+                              round(deposit_button.y / self.screen_size_multiplier)),
+                             uniform(.2, .8))  # deposit chooses 10 instead of 50 or all
                 pyautogui.click(button="left")
                 pyautogui.keyDown("esc")
                 time.sleep(.05)
@@ -235,17 +235,17 @@ class MapleCutter(BotCreator):  # extends bot creator
             tree = self.randomTreeChooser()  # fix later but call with certain instance of bot
 
             if tree is not None:
-                self.human_clicker.move((round(tree.x / self.screen_size_multiplier), round(tree.y / self.screen_size_multiplier)),
-                        random.uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
+                self.hc.move((round(tree.x / self.screen_size_multiplier), round(tree.y / self.screen_size_multiplier)),
+                             uniform(.2, .8))  # pyautogui.moveTo(tree.x, tree.y, duration=1)
                 pyautogui.click(button="left")
-                time.sleep(random.randint(4, 5))
+                time.sleep(randint(4, 5))
 
-                time.sleep(random.randint(36, 38))  # does not work well if other players
+                time.sleep(randint(36, 38))  # does not work well if other players
                 for i in range(0, 60):
                     if self.isTreeBroken(self.getLastTreeChopped()):
                         break
                     else:
-                        time.sleep(random.uniform(5, 7))
+                        time.sleep(uniform(5, 7))
                 # if reset() == "Success":
                 self.addTreeChopped()
                 self.chopTreesMaplesSeers()
@@ -260,7 +260,7 @@ class MapleCutter(BotCreator):  # extends bot creator
                 self.bank()  # bank
                 if self.reset() == "Success":  # after banking reset
                     print("sleeping for 10 seconds")  # let bro walk to reset spot
-                    time.sleep(random.uniform(9, 11))
+                    time.sleep(uniform(9, 11))
                     self.chopTreesMaplesSeers()  # call it again
                 else:  # should never happen as reset quits when it fails
                     print("could not reset")

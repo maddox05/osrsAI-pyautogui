@@ -1,9 +1,10 @@
-from mapletree import MapleCutter
-from creator import BotCreator
+from MapleTree import MapleCutter
+from BotCreator import BotCreator
 
 from definitions import *
 from assets import *
-from gui import guiStart
+from gui import guiStart, mainGUI
+from pyclick import HumanClicker
 
 try:
     import threading
@@ -12,7 +13,6 @@ try:
     import PIL
     import random
     import time
-    from pyclick import HumanClicker
     import pyscreeze
 
     screen_size = pyautogui.size()
@@ -43,7 +43,7 @@ except ImportError as e:
     raise  # Re-raise the exception for further diagnosis
 
 try:
-    hc = HumanClicker()  # init human clicker
+    hc = HumanClicker()  # init human clicker # everybody needs a clicker lol
 except:
     print("Failed to initialize human clicker (open a issue on github)")
     print(FATAL_ERROR)
@@ -98,15 +98,14 @@ if __name__ == "__main__":
     variables = guiStart()
     # check what variables return
     # fuck that
-    if variables.get("types_var") == "Tree Chopping":
+    if variables.get("types_var") == "Tree Chopping": # dont know what type of bot to create but create it, HOW?
         if variables.get("locations_var") == "Seers Village":
             maple_bot = MapleCutter(
                 BotCreator(variables.get("types_var"),
                            variables.get("locations_var"),
                            variables.get("username_var"),
                            variables.get("password_var"),
-                           variables.get("bank_pin_var"),
-                           hc),
+                           variables.get("bank_pin_var"), ),
                 screen_size_multiplier
             )
     else:
@@ -114,5 +113,6 @@ if __name__ == "__main__":
         stopBot()
 
     time.sleep(2)
-    start()  # maple_bot.start()
-    threading.Thread(target=maple_bot.chopTreesMaplesSeers()).start()
+    start()  # main start
+    threading.Thread(target=mainGUI).start()
+    threading.Thread(target=maple_bot.chopTreesMaplesSeers).start()

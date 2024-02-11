@@ -1,8 +1,8 @@
 from random import randint, uniform
 
-from BotCreator import BotCreator
+from classes.BotCreator import BotCreator
 from definitions import *
-from assets import *
+from assets.asset_package import *
 
 
 class MapleCutter(BotCreator):  # extends bot creator

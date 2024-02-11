@@ -1,3 +1,4 @@
+"""BotCreator is an abstract class which is used to then create other usable bot types"""
 from definitions import *
 from pyclick import HumanClicker
 

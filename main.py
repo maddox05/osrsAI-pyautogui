@@ -1,5 +1,6 @@
-from MapleTree import MapleCutter
-from BotCreator import BotCreator
+from assets.asset_package import *
+from classes.MapleTree import MapleCutter
+from classes.BotCreator import BotCreator
 
 from definitions import *
 from assets import *
@@ -98,7 +99,7 @@ if __name__ == "__main__":
     variables = guiStart()
     # check what variables return
     # fuck that
-    if variables.get("types_var") == "Tree Chopping": # dont know what type of bot to create but create it, HOW?
+    if variables.get("types_var") == "Tree Chopping": # don't know what type of bot to create but create it, HOW?
         if variables.get("locations_var") == "Seers Village":
             maple_bot = MapleCutter(
                 BotCreator(variables.get("types_var"),
@@ -115,4 +116,4 @@ if __name__ == "__main__":
     time.sleep(2)
     start()  # main start
     threading.Thread(target=mainGUI).start()
-    threading.Thread(target=maple_bot.chopTreesMaplesSeers).start()
+    threading.Thread(target=maple_bot.chopTreesMaplesSeers).start() # TODO # fix this whole start lol

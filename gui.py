@@ -4,7 +4,7 @@ Gui to create a Bot Creator object.
 import tkinter as tk
 import threading
 
-from BotCreator import BotCreator
+from classes.BotCreator import BotCreator
 
 
 def guiStart() -> dict:

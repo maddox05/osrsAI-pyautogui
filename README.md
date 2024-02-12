@@ -1,4 +1,4 @@
-# OSRS PyAutoGUI Willow Tree Bot
+# OSRS PyAutoGUI Willow Tree AI
 
 ![OSRS Bot](https://static.wikia.nocookie.net/2007scape/images/a/a3/Macros.gif/revision/latest?cb=20141201090409)
 

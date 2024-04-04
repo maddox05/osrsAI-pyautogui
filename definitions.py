@@ -5,6 +5,7 @@ import pyautogui
 
 FATAL_ERROR = "FATAL ERROR, QUITTING NOW"
 
+
 def stopBot():
     """
     Stops the bot and quits the program.

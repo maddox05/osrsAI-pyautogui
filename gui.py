@@ -87,6 +87,7 @@ def guiStart() -> dict:
         "bank_pin_var": bank_pin_var.get()
     }
 
+
 def mainGUI():
     root = tk.Tk()
     root.geometry("250x340")
@@ -112,5 +113,3 @@ def mainGUI():
     threading.Thread(target=updateMainGUI()).start()
 
     root.mainloop()
-
-

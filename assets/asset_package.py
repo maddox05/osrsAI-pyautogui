@@ -3,11 +3,13 @@ import os
 import time
 
 
-def getFullPath(image_array, folder) -> list:
+def getFullPath(image_array: list, folder: str) -> list:
     for index, image in enumerate(image_array):
         image_array[index] = folder + image
     return image_array
 
+
+os.chdir("../.")  # sets chdir to root
 
 try:
     # gets full path of images and puts them in array.
@@ -48,12 +50,13 @@ except Exception as e:
     quit()
 
 
-def printAsiccArt():
+def printAsiccArt() -> int:
     print(" __  __              _       _                      __     ___   ")
     print("|  \/  |  __ _    __| |   __| |    ___    __ __    /  \   | __|  ")
     print("| |\/| | / _` |  / _` |  / _` |   / _ \   \ \ /   | () |  |__ \  ")
     print("|_|__|_| \__,_|  \__,_|  \__,_|   \___/   /_\_\    \__/   |___/  ")
     print("By Maddox05 (https://github.com/maddox05)")
+    return 0
 
 
 if __name__ == "__main__":

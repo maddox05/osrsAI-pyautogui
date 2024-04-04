@@ -56,7 +56,5 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Acknowledgments
 
-- This project was inspired by the OSRS community.
 - Thanks to the developers of PyAutoGUI and Pillow for their fantastic libraries.
-- Special thanks to the OSRS Wiki for providing information about tree locations and banking spots.
 

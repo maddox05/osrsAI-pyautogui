@@ -3,7 +3,7 @@ import os
 import time
 
 
-def getFullPath(image_array: list, folder: str) -> list:
+def get_root_path(image_array: list, folder: str) -> list:
     for index, image in enumerate(image_array):
         image_array[index] = folder + image
     return image_array
@@ -13,36 +13,36 @@ os.chdir("../.")  # sets chdir to root
 
 try:
     # gets full path of images and puts them in array.
-    tree_1_maple_images = getFullPath(os.listdir("assets/seers-village-maples/tree-1-maple/"),
-                                      "assets/seers-village-maples/tree-1-maple/")
+    tree_1_maple_images = get_root_path(os.listdir("assets/seers-village-maples/tree-1-maple/"),
+                                        "assets/seers-village-maples/tree-1-maple/")
 
-    tree_2_maple_images = getFullPath(os.listdir("assets/seers-village-maples/tree-2-maple/"),
-                                      "assets/seers-village-maples/tree-2-maple/")
+    tree_2_maple_images = get_root_path(os.listdir("assets/seers-village-maples/tree-2-maple/"),
+                                        "assets/seers-village-maples/tree-2-maple/")
 
-    tree_3_maple_images = getFullPath(os.listdir("assets/seers-village-maples/tree-3-maple/"),
-                                      "assets/seers-village-maples/tree-3-maple/")
+    tree_3_maple_images = get_root_path(os.listdir("assets/seers-village-maples/tree-3-maple/"),
+                                        "assets/seers-village-maples/tree-3-maple/")
 
-    tree_4_maple_images = getFullPath(os.listdir("assets/seers-village-maples/tree-4-maple/"),
-                                      "assets/seers-village-maples/tree-4-maple/")
+    tree_4_maple_images = get_root_path(os.listdir("assets/seers-village-maples/tree-4-maple/"),
+                                        "assets/seers-village-maples/tree-4-maple/")
 
-    maple_deposit = getFullPath(os.listdir("assets/seers-village-maples/maple-deposit/"),
-                                "assets/seers-village-maples/maple-deposit/")
+    maple_deposit = get_root_path(os.listdir("assets/seers-village-maples/maple-deposit/"),
+                                  "assets/seers-village-maples/maple-deposit/")
 
-    bank_images = getFullPath(os.listdir("assets/seers-village-maples/bank/"), "assets/seers-village-maples/bank/")
+    bank_images = get_root_path(os.listdir("assets/seers-village-maples/bank/"), "assets/seers-village-maples/bank/")
 
-    tree_1_dead_maple = getFullPath(os.listdir("assets/seers-village-maples-dead/tree-1-maple/"),
-                                    "assets/seers-village-maples-dead/tree-1-maple/")
+    tree_1_dead_maple = get_root_path(os.listdir("assets/seers-village-maples-dead/tree-1-maple/"),
+                                      "assets/seers-village-maples-dead/tree-1-maple/")
 
-    tree_2_dead_maple = getFullPath(os.listdir("assets/seers-village-maples-dead/tree-2-maple/"),
-                                    "assets/seers-village-maples-dead/tree-2-maple/")
+    tree_2_dead_maple = get_root_path(os.listdir("assets/seers-village-maples-dead/tree-2-maple/"),
+                                      "assets/seers-village-maples-dead/tree-2-maple/")
 
-    tree_3_dead_maple = getFullPath(os.listdir("assets/seers-village-maples-dead/tree-3-maple/"),
-                                    "assets/seers-village-maples-dead/tree-3-maple/")
+    tree_3_dead_maple = get_root_path(os.listdir("assets/seers-village-maples-dead/tree-3-maple/"),
+                                      "assets/seers-village-maples-dead/tree-3-maple/")
 
-    tree_4_dead_maple = getFullPath(os.listdir("assets/seers-village-maples-dead/tree-4-maple/"),
-                                    "assets/seers-village-maples-dead/tree-4-maple/")
+    tree_4_dead_maple = get_root_path(os.listdir("assets/seers-village-maples-dead/tree-4-maple/"),
+                                      "assets/seers-village-maples-dead/tree-4-maple/")
 
-    compass_images = getFullPath(os.listdir("assets/compass/"), "assets/compass/")
+    compass_images = get_root_path(os.listdir("assets/compass/"), "assets/compass/")
 except Exception as e:
     print("Error loading images, please check the assets folder and try again")
     print(e)

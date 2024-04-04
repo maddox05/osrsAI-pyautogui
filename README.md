@@ -13,6 +13,9 @@ This is a Python script that uses PyAutoGUI to automate the process of cutting d
 - Customizable settings for different tree types and banking locations. ⚠️(COMING SOON)⚠️
 - User-friendly and easy to configure.
 
+## Status
+[![Python application](https://github.com/maddox05/osrsAI-pyautogui/actions/workflows/python-app.yml/badge.svg)](https://github.com/maddox05/osrsAI-pyautogui/actions/workflows/python-app.yml)
+
 ## Prerequisites
 
 Before using this bot, make sure you have the following prerequisites installed:

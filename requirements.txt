@@ -4,3 +4,4 @@ pyclick
 opencv-python
 pyinstaller
 PyScreeze
+pytest

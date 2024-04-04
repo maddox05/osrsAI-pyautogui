@@ -1,3 +1,4 @@
+import assets
 from assets.asset_package import getFullPath
 
 

@@ -14,7 +14,7 @@ This is a Python script that uses PyAutoGUI to automate the process of cutting d
 - User-friendly and easy to configure.
 
 ## Status
-[![Python application](https://github.com/maddox05/osrsAI-pyautogui/actions/workflows/python-app.yml/badge.svg)](https://github.com/maddox05/osrsAI-pyautogui/actions/workflows/python-app.yml)
+[![run_tests](https://github.com/maddox05/osrsAI-pyautogui/actions/workflows/python-app.yml/badge.svg)](https://github.com/maddox05/osrsAI-pyautogui/actions/workflows/python-app.yml)
 
 ## Prerequisites
 

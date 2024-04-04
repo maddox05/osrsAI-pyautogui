@@ -25,7 +25,7 @@ Before using this bot, make sure you have the following prerequisites installed:
 - Pillow (PIL): Install it using `pip install pillow`.
 - PyClick: Install it using `pip install pyclick`.
 - OpenCV: Install it using `pip install opencv-python`.
-- Currently only works on Windows. MacOS and Linux support coming soon.
+- Currently only works on Windows. MacOS is kinda supported. Linux support is coming soon.
 
 ## Installation
 

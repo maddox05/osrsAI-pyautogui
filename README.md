@@ -47,7 +47,8 @@ python main.py
 
 ## Disclaimer
 
-**USE AT YOUR OWN RISK**: This bot interacts with the OSRS client using AI image detection, which may violate the game's terms of service. Using this bot may result in your account being banned. Be sure to review and comply with Jagex's terms of service before using this bot.
+**USE AT YOUR OWN RISK**: This bot interacts with the OSRS client using AI image detection, which may violate the game's terms of service. Using this bot may (will) result in your account being banned. Be sure to review and comply with Jagex's terms of service before using this bot.
+**THIS IS FOR EDUCATIONAL PURPOSES ONLY**
 
 ## License
 
